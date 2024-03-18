@@ -8,14 +8,16 @@ import { boolean, number } from "zod"
 import { dir } from "console"
 import { generatePagination } from "@/lib/util"
 
-const pagination = ({totalPages}:{totalPages:number}) => {
+const Pagination = ({totalPages}:{totalPages:number}) => {
 
+    const searchParams = useSearchParams()
     const pathname = usePathname()
-    const searchParam = useSearchParams()
-    const currentPage = Number(searchParam.get("page")) || 1
+
+    
+    const currentPage = Number(searchParams.get("page")) || 1
 
     const createPageURL = (pageNumber:string | number) => {
-        const params = new URLSearchParams(searchParam)
+        const params = new URLSearchParams(searchParams)
         params.set("page",pageNumber.toString())
 
         return `${pathname}?${params.toString()}`
@@ -116,4 +118,4 @@ const pagination = ({totalPages}:{totalPages:number}) => {
   )
 }
 
-export default pagination
+export default Pagination
